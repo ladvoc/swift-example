@@ -50,7 +50,6 @@ jobs:
           - os: macos-15
             xcode: 16.2
             platform: "iOS Simulator,OS=18.1,name=iPhone 16 Pro"
-            symbol-graph: true
           - os: macos-15
             xcode: 16.2
             platform: "macOS"
@@ -119,7 +118,6 @@ jobs:
       #      -parallel-testing-worker-count 4 | xcbeautify --renderer github-actions
 
       - name: Build for Release
-        if: ${{ matrix.symbol-graph }}
         run: |
           set -o pipefail && xcodebuild build \
             -project ${{ env.XCODE_PROJECT }} \
