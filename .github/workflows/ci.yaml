@@ -74,15 +74,15 @@ jobs:
       # - name: Run LiveKit Server
       #  run: livekit-server --dev &
 
-      - uses: maxim-lobanov/setup-xcode@v1
+      - name: Setup Xcode ${{ matrix.xcode }}
+        uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: ${{ matrix.xcode }}
 
-      - name: Xcode Version
-        run: xcodebuild -version
-
-      - name: Swift Version
-        run: xcrun swift --version
+      - name: Print Versions
+        run: |
+          xcodebuild -version
+          xcrun swift --version
 
       - name: Generate Cache Key
         id: cache-key
