@@ -61,13 +61,14 @@ jobs:
       run:
         shell: bash
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Install LiveKit Server
-        run: brew install livekit
+      - name: Checkout
+        uses: actions/checkout@v4
 
       ## Currently there are no tests that require the server to be running
       ## Uncomment this when adding tests that require the server to be running
+      ## ------------------------------------------------------------------------
+      # - name: Install LiveKit Server
+      #  run: brew install livekit
       # - name: Run LiveKit Server
       #  run: livekit-server --dev &
 
