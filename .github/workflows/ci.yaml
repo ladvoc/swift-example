@@ -82,11 +82,18 @@ jobs:
       - name: Swift Version
         run: xcrun swift --version
 
+      - name: Generate Cache Key
+        id: cache-key
+        run: |
+          # Cache key cannot contains commas
+          SANITIZED_PLATFORM=$(echo "${{ matrix.platform }}" | tr ',' '-')
+          echo "key=xcode-${{ matrix.xcode }}-${SANITIZED_PLATFORM}" >> $GITHUB_OUTPUT
+
       - name: Cache
         uses: irgaly/xcode-cache@v1
         with:
-          key: xcode-${{ matrix.xcode }}-${{ matrix.platform }}-${{ github.sha }}
-          restore-keys: xcode-${{ matrix.xcode }}-${{ matrix.platform }}-
+          key: ${{ steps.cache-key.outputs.key }}-${{ github.sha }}
+          restore-keys: ${{ steps.cache-key.outputs.key }}-
 
       - name: Build for Testing
         run: |
