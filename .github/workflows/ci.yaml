@@ -106,14 +106,17 @@ jobs:
             -destination 'platform=${{ matrix.platform }}' \
             CODE_SIGN_IDENTITY="" | xcbeautify --renderer github-actions
 
-      - name: Run Tests
-        run: |
-          set -o pipefail && xcodebuild test-without-building \
-            -project ${{ env.XCODE_PROJECT }} \
-            -scheme ${{ env.XCODE_SCHEME }} \
-            -destination 'platform=${{ matrix.platform }}' \
-            -parallel-testing-enabled YES \
-            -parallel-testing-worker-count 4 | xcbeautify --renderer github-actions
+      ## This project does not currently have tests
+      ## Uncomment this once they are added
+      ## ------------------------------------------------------------------------
+      # - name: Run Tests
+      #  run: |
+      #    set -o pipefail && xcodebuild test-without-building \
+      #      -project ${{ env.XCODE_PROJECT }} \
+      #      -scheme ${{ env.XCODE_SCHEME }} \
+      #      -destination 'platform=${{ matrix.platform }}' \
+      #      -parallel-testing-enabled YES \
+      #      -parallel-testing-worker-count 4 | xcbeautify --renderer github-actions
 
       - name: Build for Release
         if: ${{ matrix.symbol-graph }}
